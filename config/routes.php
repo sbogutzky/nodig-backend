@@ -49,6 +49,8 @@ $routes->prefix('Api', function (RouteBuilder $builder) {
     // All routes here will be prefixed with `/admin`, and
     // have the `'prefix' => 'Admin'` route element added that
     // will be required when generating URLs for these routes
+    $builder->setExtensions(['json']);
+    $builder->resources('Details');
     $builder->fallbacks(DashedRoute::class);
 });
 
