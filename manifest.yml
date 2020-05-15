@@ -1,0 +1,7 @@
+---
+applications:
+  - name: NoDig
+    random-route: true
+    memory: 128M
+    buildpacks:
+    - https://github.com/cloudfoundry/php-buildpack.git

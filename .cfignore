@@ -1,0 +1,16 @@
+.git
+.github
+bin/
+database/
+logs/
+tmp/
+tests/
+vendor/
+.DS_Store
+.gitattributes
+.editorconfig
+.gitignore
+.travis.yml
+manifest.yml
+phpunit.xml.dist
+README.md
