@@ -1,8 +1,13 @@
 <?php
 /**
- * @var \App\View\AppView $this
- * @var \App\Model\Entity\Sensor $sensor
+ * @var AppView $this
+ * @var Sensor $sensor
  */
+
+use App\Model\Entity\Sensor;
+use App\View\AppView;
+
+require_once(ROOT . DS . 'src' . DS . 'fusioncharts.php');
 ?>
 <div class="row">
     <aside class="column">
@@ -42,32 +47,50 @@
             <div class="related">
                 <h4><?= __('Related Details') ?></h4>
                 <?php if (!empty($sensor->details)) : ?>
-                <div class="table-responsive">
-                    <table>
-                        <tr>
-                            <th><?= __('Id') ?></th>
-                            <th><?= __('Created') ?></th>
-                            <th><?= __('Modified') ?></th>
-                            <th><?= __('Soil Moisture') ?></th>
-                            <th><?= __('Sensor Id') ?></th>
-                            <th class="actions"><?= __('Actions') ?></th>
-                        </tr>
-                        <?php foreach ($sensor->details as $details) : ?>
-                        <tr>
-                            <td><?= h($details->id) ?></td>
-                            <td><?= h($details->created) ?></td>
-                            <td><?= h($details->modified) ?></td>
-                            <td><?= h($details->soil_moisture) ?></td>
-                            <td><?= h($details->sensor_id) ?></td>
-                            <td class="actions">
-                                <?= $this->Html->link(__('View'), ['controller' => 'Details', 'action' => 'view', $details->id]) ?>
-                                <?= $this->Html->link(__('Edit'), ['controller' => 'Details', 'action' => 'edit', $details->id]) ?>
-                                <?= $this->Form->postLink(__('Delete'), ['controller' => 'Details', 'action' => 'delete', $details->id], ['confirm' => __('Are you sure you want to delete # {0}?', $details->id)]) ?>
-                            </td>
-                        </tr>
-                        <?php endforeach; ?>
-                    </table>
-                </div>
+                    <?= $this->Html->script('fusioncharts/fusioncharts.js') ?>
+                    <?= $this->Html->script('fusioncharts/themes/fusioncharts.theme.gammel.js') ?>
+
+                    <?php
+
+                    $data = [];
+                    foreach ($sensor->details as $detail) {
+                        array_push($data, array($detail["created"], $detail["soil_moisture"])
+                        );
+                    }
+                    $data = (json_encode($data));
+
+                    $schema = '[{
+                                  "name": "Time",
+                                  "type": "date",
+                                  "format": "%Y-%m-%dT%H:%M:%S%Z"
+                                }, {
+                                  "name": "' . __("Soil moisture") . '",
+                                  "type": "number"
+                                }]';
+
+
+                    $fusionTable = new FusionTable($schema, $data);
+                    $timeSeries = new TimeSeries($fusionTable);
+
+                    $timeSeries->AddAttribute("chart", "{
+                                            paletteColors: '#d33c43',
+											showLegend: 0,
+											theme: 'gammel'
+										  }");
+
+                    $timeSeries->AddAttribute("caption", "{
+											text: '" . __("Soil moisture") . "'}");
+
+                    //$timeSeries->AddAttribute('xaxis', '{"outputtimeformat":{"month":"","day":"%d.%m","hour":"%H:%M:%S"}}');
+
+                    // chart object
+                    $Chart = new FusionCharts("timeseries", "chart-1", "100%", "600", "chart-container", "json", $timeSeries);
+
+                    // Render the chart
+                    $Chart->render();
+
+                    ?>
+                    <div id="chart-container"></div>
                 <?php endif; ?>
             </div>
         </div>

@@ -7,6 +7,44 @@ use Cake\Error\ExceptionRenderer;
 use Cake\Log\Engine\FileLog;
 use Cake\Mailer\Transport\MailTransport;
 
+if(isset($_ENV['VCAP_SERVICES'])) {
+    $vcapServices = json_decode($_ENV['VCAP_SERVICES'], true);
+    $composeForMysql = $vcapServices['compose-for-mysql'][0]['credentials']['uri'];
+    $urlBits = parse_url($composeForMysql);
+
+    $default = array(
+        'className' => Connection::class,
+        'driver' => Mysql::class,
+        'persistent' => false,
+        'host' => $urlBits['host'],
+        'username' => $urlBits['user'],
+        'password' => $urlBits['pass'],
+        'database' => 'nodig',
+        'encoding' => 'utf8mb4',
+        'timezone' => 'UTC',
+        'flags' => [],
+        'cacheMetadata' => true,
+        'log' => false,
+        'port' => $urlBits['port'],
+    );
+} else {
+    $default = array(
+        'className' => Connection::class,
+        'driver' => Mysql::class,
+        'persistent' => false,
+        'host' => 'localhost',
+        'port' => 3306,
+        'username' => 'root',
+        'password' => 'root',
+        'database' => 'nodig',
+        'encoding' => 'utf8mb4',
+        'timezone' => 'UTC',
+        'flags' => [],
+        'cacheMetadata' => true,
+        'log' => false,
+    );
+}
+
 return [
     /*
      * Debug Level:
@@ -270,10 +308,15 @@ return [
          * in app_local.php depending on the applications needs.
          */
         'default' => [
-            'className' => Connection::class,
-            'driver' => Mysql::class,
-            'persistent' => false,
-            'timezone' => 'UTC',
+            'className' =>  $default['className'],
+            'driver' => $default['driver'],
+            'persistent' => $default['persistent'],
+            'host' => $default['host'],
+            'port' => $default['port'],
+            'username' => $default['username'],
+            'password' => $default['password'],
+            'database' => $default['database'],
+            'timezone' => $default['timezone'],
 
             /**
              * For MariaDB/MySQL the internal default changed from utf8 to utf8mb4, aka full utf-8 support, in CakePHP 3.6
@@ -285,9 +328,9 @@ return [
              * then you MUST use the `flags` config to set your charset encoding.
              * For e.g. `'flags' => [\PDO::MYSQL_ATTR_INIT_COMMAND => 'SET NAMES utf8mb4']`
              */
-            'flags' => [],
-            'cacheMetadata' => true,
-            'log' => false,
+            'flags' => $default['flags'],
+            'cacheMetadata' => $default['cacheMetadata'],
+            'log' => $default['log'],
 
             /*
              * Set identifier quoting to true if you are using reserved words or
