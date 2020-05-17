@@ -37,11 +37,11 @@ require_once(ROOT . DS . 'src' . DS . 'fusioncharts.php');
                 </tr>
                 <tr>
                     <th><?= __('Created') ?></th>
-                    <td><?= h($sensor->created) ?></td>
+                    <td><?= h($this->Time->format($sensor->created, null, null, 'Europe/Berlin')) ?></td>
                 </tr>
                 <tr>
                     <th><?= __('Modified') ?></th>
-                    <td><?= h($sensor->modified) ?></td>
+                    <td><?= h($this->Time->format($sensor->modified, null, null, 'Europe/Berlin')) ?></td>
                 </tr>
             </table>
             <div class="related">
@@ -54,7 +54,7 @@ require_once(ROOT . DS . 'src' . DS . 'fusioncharts.php');
 
                     $data = [];
                     foreach ($sensor->details as $detail) {
-                        array_push($data, array($detail["created"], $detail["soil_moisture"])
+                        array_push($data, array($this->Time->format($detail["created"], "yyyy-MM-dd HH:mm:ss", null, 'Europe/Berlin'), $detail["soil_moisture"])
                         );
                     }
                     $data = (json_encode($data));
@@ -62,7 +62,7 @@ require_once(ROOT . DS . 'src' . DS . 'fusioncharts.php');
                     $schema = '[{
                                   "name": "Time",
                                   "type": "date",
-                                  "format": "%Y-%m-%dT%H:%M:%S%Z"
+                                  "format": "%Y-%m-%d %H:%M:%S"
                                 }, {
                                   "name": "' . __("Soil moisture") . '",
                                   "type": "number"
