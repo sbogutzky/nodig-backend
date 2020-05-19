@@ -3,18 +3,24 @@ declare(strict_types=1);
 
 namespace App\Controller;
 
+use App\Model\Entity\Detail;
+use App\Model\Table\DetailsTable;
+use Cake\Datasource\Exception\RecordNotFoundException;
+use Cake\Datasource\ResultSetInterface;
+use Cake\Http\Response;
+
 /**
  * Details Controller
  *
- * @property \App\Model\Table\DetailsTable $Details
- * @method \App\Model\Entity\Detail[]|\Cake\Datasource\ResultSetInterface paginate($object = null, array $settings = [])
+ * @property DetailsTable $Details
+ * @method Detail[]|ResultSetInterface paginate($object = null, array $settings = [])
  */
 class DetailsController extends AppController
 {
     /**
      * Index method
      *
-     * @return \Cake\Http\Response|null|void Renders view
+     * @return Response|null|void Renders view
      */
     public function index()
     {
@@ -30,8 +36,8 @@ class DetailsController extends AppController
      * View method
      *
      * @param string|null $id Detail id.
-     * @return \Cake\Http\Response|null|void Renders view
-     * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
+     * @return Response|null|void Renders view
+     * @throws RecordNotFoundException When record not found.
      */
     public function view($id = null)
     {
@@ -45,7 +51,7 @@ class DetailsController extends AppController
     /**
      * Add method
      *
-     * @return \Cake\Http\Response|null|void Redirects on successful add, renders view otherwise.
+     * @return Response|null|void Redirects on successful add, renders view otherwise.
      */
     public function add()
     {
@@ -67,8 +73,8 @@ class DetailsController extends AppController
      * Edit method
      *
      * @param string|null $id Detail id.
-     * @return \Cake\Http\Response|null|void Redirects on successful edit, renders view otherwise.
-     * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
+     * @return Response|null|void Redirects on successful edit, renders view otherwise.
+     * @throws RecordNotFoundException When record not found.
      */
     public function edit($id = null)
     {
@@ -92,8 +98,8 @@ class DetailsController extends AppController
      * Delete method
      *
      * @param string|null $id Detail id.
-     * @return \Cake\Http\Response|null|void Redirects to index.
-     * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
+     * @return Response|null|void Redirects to index.
+     * @throws RecordNotFoundException When record not found.
      */
     public function delete($id = null)
     {
