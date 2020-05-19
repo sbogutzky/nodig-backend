@@ -46,6 +46,35 @@ class DetailsControllerTest extends TestCase
         // Arrange
         $data = [
             'soil_moisture' => 1,
+            'sensor_id' => 1
+        ];
+        $jsonData = json_encode($data);
+
+        // Act
+        $this->post('api/details/add', $jsonData);
+
+        // Assert
+        $this->assertResponseSuccess();
+        $table = TableRegistry::getTableLocator()->get('Details');
+        $query = $table->find()->where(['sensor_id' => $data['sensor_id']]);
+        $this->assertEquals(2, $query->count());
+        $lastDetail = $query->last();
+        $this->assertEquals(1, $lastDetail->soil_moisture);
+        $this->assertEquals(0, $lastDetail->humidity);
+        $this->assertEquals(0, $lastDetail->temperature);
+    }
+
+    /**
+     * Test add method
+     *
+     * @return void
+     * @throws Throwable
+     */
+    public function testAddOptional(): void
+    {
+        // Arrange
+        $data = [
+            'soil_moisture' => 1,
             'humidity' => 2.2,
             'temperature' => 3.3,
             'sensor_id' => 1
