@@ -1,8 +1,13 @@
 <?php
 /**
- * @var \App\View\AppView $this
- * @var \App\Model\Entity\Detail[]|\Cake\Collection\CollectionInterface $details
+ * @var AppView $this
+ * @var Detail[]|CollectionInterface $details
  */
+
+use App\Model\Entity\Detail;
+use App\View\AppView;
+use Cake\Collection\CollectionInterface;
+
 ?>
 <div class="details index content">
     <?= $this->Html->link(__('New Detail'), ['action' => 'add'], ['class' => 'button float-right']) ?>
@@ -15,6 +20,8 @@
                     <th><?= $this->Paginator->sort('created') ?></th>
                     <th><?= $this->Paginator->sort('modified') ?></th>
                     <th><?= $this->Paginator->sort('soil_moisture') ?></th>
+                    <th><?= $this->Paginator->sort('humidity') ?></th>
+                    <th><?= $this->Paginator->sort('temperature') ?></th>
                     <th><?= $this->Paginator->sort('sensor_id') ?></th>
                     <th class="actions"><?= __('Actions') ?></th>
                 </tr>
@@ -26,6 +33,8 @@
                     <td><?= h($detail->created) ?></td>
                     <td><?= h($detail->modified) ?></td>
                     <td><?= $this->Number->format($detail->soil_moisture) ?></td>
+                    <td><?= $this->Number->format($detail->humidity) ?></td>
+                    <td><?= $this->Number->format($detail->temperature) ?></td>
                     <td><?= $detail->has('sensor') ? $this->Html->link($detail->sensor->name, ['controller' => 'Sensors', 'action' => 'view', $detail->sensor->id]) : '' ?></td>
                     <td class="actions">
                         <?= $this->Html->link(__('View'), ['action' => 'view', $detail->id]) ?>

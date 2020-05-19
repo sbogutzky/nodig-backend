@@ -1,8 +1,14 @@
 <?php
 /**
- * @var \App\View\AppView $this
- * @var \App\Model\Entity\Detail $detail
+ * @var AppView $this
+ * @var Detail $detail
+ * @var Sensor $sensors
  */
+
+use App\Model\Entity\Detail;
+use App\Model\Entity\Sensor;
+use App\View\AppView;
+
 ?>
 <div class="row">
     <aside class="column">
@@ -18,6 +24,8 @@
                 <legend><?= __('Add Detail') ?></legend>
                 <?php
                     echo $this->Form->control('soil_moisture');
+                    echo $this->Form->control('humidity');
+                    echo $this->Form->control('temperature');
                     echo $this->Form->control('sensor_id', ['options' => $sensors]);
                 ?>
             </fieldset>

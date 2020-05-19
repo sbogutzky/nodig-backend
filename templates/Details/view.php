@@ -1,8 +1,12 @@
 <?php
 /**
- * @var \App\View\AppView $this
- * @var \App\Model\Entity\Detail $detail
+ * @var AppView $this
+ * @var Detail $detail
  */
+
+use App\Model\Entity\Detail;
+use App\View\AppView;
+
 ?>
 <div class="row">
     <aside class="column">
@@ -25,6 +29,14 @@
                 <tr>
                     <th><?= __('Id') ?></th>
                     <td><?= $this->Number->format($detail->id) ?></td>
+                </tr>
+                <tr>
+                    <th><?= __('Temperature') ?></th>
+                    <td><?= $this->Number->format($detail->temperature) ?></td>
+                </tr>
+                <tr>
+                    <th><?= __('Humidity') ?></th>
+                    <td><?= $this->Number->format($detail->humidity) ?></td>
                 </tr>
                 <tr>
                     <th><?= __('Soil Moisture') ?></th>

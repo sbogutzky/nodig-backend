@@ -3,7 +3,11 @@ declare(strict_types=1);
 
 namespace App\Model\Table;
 
-use Cake\ORM\Query;
+use App\Model\Entity\Detail;
+use Cake\Datasource\EntityInterface;
+use Cake\Datasource\ResultSetInterface;
+use Cake\ORM\Association\BelongsTo;
+use Cake\ORM\Behavior\TimestampBehavior;
 use Cake\ORM\RulesChecker;
 use Cake\ORM\Table;
 use Cake\Validation\Validator;
@@ -11,23 +15,23 @@ use Cake\Validation\Validator;
 /**
  * Details Model
  *
- * @property \App\Model\Table\SensorsTable&\Cake\ORM\Association\BelongsTo $Sensors
+ * @property SensorsTable&BelongsTo $Sensors
  *
- * @method \App\Model\Entity\Detail newEmptyEntity()
- * @method \App\Model\Entity\Detail newEntity(array $data, array $options = [])
- * @method \App\Model\Entity\Detail[] newEntities(array $data, array $options = [])
- * @method \App\Model\Entity\Detail get($primaryKey, $options = [])
- * @method \App\Model\Entity\Detail findOrCreate($search, ?callable $callback = null, $options = [])
- * @method \App\Model\Entity\Detail patchEntity(\Cake\Datasource\EntityInterface $entity, array $data, array $options = [])
- * @method \App\Model\Entity\Detail[] patchEntities(iterable $entities, array $data, array $options = [])
- * @method \App\Model\Entity\Detail|false save(\Cake\Datasource\EntityInterface $entity, $options = [])
- * @method \App\Model\Entity\Detail saveOrFail(\Cake\Datasource\EntityInterface $entity, $options = [])
- * @method \App\Model\Entity\Detail[]|\Cake\Datasource\ResultSetInterface|false saveMany(iterable $entities, $options = [])
- * @method \App\Model\Entity\Detail[]|\Cake\Datasource\ResultSetInterface saveManyOrFail(iterable $entities, $options = [])
- * @method \App\Model\Entity\Detail[]|\Cake\Datasource\ResultSetInterface|false deleteMany(iterable $entities, $options = [])
- * @method \App\Model\Entity\Detail[]|\Cake\Datasource\ResultSetInterface deleteManyOrFail(iterable $entities, $options = [])
+ * @method Detail newEmptyEntity()
+ * @method Detail newEntity(array $data, array $options = [])
+ * @method Detail[] newEntities(array $data, array $options = [])
+ * @method Detail get($primaryKey, $options = [])
+ * @method Detail findOrCreate($search, ?callable $callback = null, $options = [])
+ * @method Detail patchEntity(EntityInterface $entity, array $data, array $options = [])
+ * @method Detail[] patchEntities(iterable $entities, array $data, array $options = [])
+ * @method Detail|false save(EntityInterface $entity, $options = [])
+ * @method Detail saveOrFail(EntityInterface $entity, $options = [])
+ * @method Detail[]|ResultSetInterface|false saveMany(iterable $entities, $options = [])
+ * @method Detail[]|ResultSetInterface saveManyOrFail(iterable $entities, $options = [])
+ * @method Detail[]|ResultSetInterface|false deleteMany(iterable $entities, $options = [])
+ * @method Detail[]|ResultSetInterface deleteManyOrFail(iterable $entities, $options = [])
  *
- * @mixin \Cake\ORM\Behavior\TimestampBehavior
+ * @mixin TimestampBehavior
  */
 class DetailsTable extends Table
 {
@@ -56,8 +60,8 @@ class DetailsTable extends Table
     /**
      * Default validation rules.
      *
-     * @param \Cake\Validation\Validator $validator Validator instance.
-     * @return \Cake\Validation\Validator
+     * @param Validator $validator Validator instance.
+     * @return Validator
      */
     public function validationDefault(Validator $validator): Validator
     {
@@ -77,8 +81,8 @@ class DetailsTable extends Table
      * Returns a rules checker object that will be used for validating
      * application integrity.
      *
-     * @param \Cake\ORM\RulesChecker $rules The rules object to be modified.
-     * @return \Cake\ORM\RulesChecker
+     * @param RulesChecker $rules The rules object to be modified.
+     * @return RulesChecker
      */
     public function buildRules(RulesChecker $rules): RulesChecker
     {
