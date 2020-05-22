@@ -30,8 +30,8 @@ use Cake\Collection\CollectionInterface;
                 <?php foreach ($details as $detail): ?>
                 <tr>
                     <td><?= $this->Number->format($detail->id) ?></td>
-                    <td><?= h($detail->created) ?></td>
-                    <td><?= h($detail->modified) ?></td>
+                    <td><?= h($this->Time->format($detail->created, null, null, 'Europe/Berlin')) ?></td>
+                    <td><?= h($this->Time->format($detail->modified, null, null, 'Europe/Berlin')) ?></td>
                     <td><?= $this->Number->format($detail->soil_moisture) ?></td>
                     <td><?= $this->Number->format($detail->humidity) ?></td>
                     <td><?= $this->Number->format($detail->temperature) ?></td>

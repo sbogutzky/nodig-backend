@@ -44,11 +44,11 @@ use App\View\AppView;
                 </tr>
                 <tr>
                     <th><?= __('Created') ?></th>
-                    <td><?= h($detail->created) ?></td>
+                    <td><?= h($this->Time->format($detail->created, null, null, 'Europe/Berlin')) ?></td>
                 </tr>
                 <tr>
                     <th><?= __('Modified') ?></th>
-                    <td><?= h($detail->modified) ?></td>
+                    <td><?= h($this->Time->format($detail->modified, null, null, 'Europe/Berlin')) ?></td>
                 </tr>
             </table>
         </div>
