@@ -22,8 +22,8 @@
                 <?php foreach ($plots as $plot): ?>
                 <tr>
                     <td><?= $this->Number->format($plot->id) ?></td>
-                    <td><?= h($plot->created) ?></td>
-                    <td><?= h($plot->modified) ?></td>
+                    <td><?= h($this->Time->format($plot->created, null, null, 'Europe/Berlin')) ?></td>
+                    <td><?= h($this->Time->format($plot->modified, null, null, 'Europe/Berlin')) ?></td>
                     <td><?= h($plot->name) ?></td>
                     <td class="actions">
                         <?= $this->Html->link(__('View'), ['action' => 'view', $plot->id]) ?>
