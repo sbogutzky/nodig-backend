@@ -23,8 +23,8 @@
                 <?php foreach ($sensors as $sensor): ?>
                 <tr>
                     <td><?= $this->Number->format($sensor->id) ?></td>
-                    <td><?= h($sensor->created) ?></td>
-                    <td><?= h($sensor->modified) ?></td>
+                    <td><?= h($this->Time->format($sensor->created, null, null, 'Europe/Berlin')) ?></td>
+                    <td><?= h($this->Time->format($sensor->modified, null, null, 'Europe/Berlin')) ?></td>
                     <td><?= h($sensor->name) ?></td>
                     <td><?= $sensor->has('plot') ? $this->Html->link($sensor->plot->name, ['controller' => 'Plots', 'action' => 'view', $sensor->plot->id]) : '' ?></td>
                     <td class="actions">

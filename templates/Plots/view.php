@@ -28,11 +28,11 @@
                 </tr>
                 <tr>
                     <th><?= __('Created') ?></th>
-                    <td><?= h($plot->created) ?></td>
+                    <td><?= h($this->Time->format($plot->created, null, null, 'Europe/Berlin')) ?></td>
                 </tr>
                 <tr>
                     <th><?= __('Modified') ?></th>
-                    <td><?= h($plot->modified) ?></td>
+                    <td><?= h($this->Time->format($plot->modified, null, null, 'Europe/Berlin')) ?></td>
                 </tr>
             </table>
             <div class="related">
