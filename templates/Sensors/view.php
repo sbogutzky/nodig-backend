@@ -54,7 +54,7 @@ require_once(ROOT . DS . 'src' . DS . 'fusioncharts.php');
 
                     $data = [];
                     foreach ($sensor->details as $detail) {
-                        array_push($data, array($this->Time->format($detail["created"], "yyyy-MM-dd HH:mm:ss", null, 'Europe/Berlin'), $detail["soil_moisture"])
+                        array_push($data, array($this->Time->format($detail["created"], "yyyy-MM-dd HH:mm", null, 'Europe/Berlin'), $detail["soil_moisture"], $detail["humidity"], $detail["temperature"])
                         );
                     }
                     $data = (json_encode($data));
@@ -62,9 +62,15 @@ require_once(ROOT . DS . 'src' . DS . 'fusioncharts.php');
                     $schema = '[{
                                   "name": "Time",
                                   "type": "date",
-                                  "format": "%Y-%m-%d %H:%M:%S"
+                                  "format": "%Y-%m-%d %H:%M"
                                 }, {
                                   "name": "' . __("Soil moisture") . '",
+                                  "type": "number"
+                                }, {
+                                  "name": "' . __("Humidity") . '",
+                                  "type": "number"
+                                }, {
+                                  "name": "' . __("Temperature") . '",
                                   "type": "number"
                                 }]';
 
@@ -73,18 +79,18 @@ require_once(ROOT . DS . 'src' . DS . 'fusioncharts.php');
                     $timeSeries = new TimeSeries($fusionTable);
 
                     $timeSeries->AddAttribute("chart", "{
-                                            paletteColors: '#d33c43',
+                                            paletteColors: ['#D43B43', '#D4D150', '#1F6287'],
 											showLegend: 0,
 											theme: 'gammel'
 										  }");
 
                     $timeSeries->AddAttribute("caption", "{
-											text: '" . __("Soil moisture") . "'}");
-
-                    //$timeSeries->AddAttribute('xaxis', '{"outputtimeformat":{"month":"","day":"%d.%m","hour":"%H:%M:%S"}}');
+											text: '" . __("Sensor details") . "'}");
+                    //$timeSeries->AddAttribute('xaxis', '{"outputtimeformat":{"month":"","day":"%d.%m","hour":"%H:%M"}}');
+                    //$timeSeries->AddAttribute('tooltip', '{"outputtimeformat":{"month":"","day":"%d.%m","hour":"%H:%M"}}');
 
                     // chart object
-                    $Chart = new FusionCharts("timeseries", "chart-1", "100%", "600", "chart-container", "json", $timeSeries);
+                    $Chart = new FusionCharts("timeseries", "chart-1", "100%", "800", "chart-container", "json", $timeSeries);
 
                     // Render the chart
                     $Chart->render();
