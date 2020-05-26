@@ -86,6 +86,7 @@ require_once(ROOT . DS . 'src' . DS . 'fusioncharts.php');
 
                     $timeSeries->AddAttribute("caption", "{
 											text: '" . __("Sensor details") . "'}");
+                    $timeSeries->AddAttribute('yaxis', '[{"plot":[{"value":"' . __("Soil moisture") . '","connectnulldata":true}],"min":"2500","max":"3500"}, {"plot":[{"value":"' . __("Humidity") . '","connectnulldata":true}]}, {"plot":[{"value":"' . __("Temperature") . '","connectnulldata":true}]}]');
                     //$timeSeries->AddAttribute('xaxis', '{"outputtimeformat":{"month":"","day":"%d.%m","hour":"%H:%M"}}');
                     //$timeSeries->AddAttribute('tooltip', '{"outputtimeformat":{"month":"","day":"%d.%m","hour":"%H:%M"}}');
 
